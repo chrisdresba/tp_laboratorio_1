@@ -35,8 +35,8 @@ int main(void) {
 
 		respuesta =
 				utn_getNumero(&opcion,
-						"\n\t<---EMPLEADOS--->\n \n1-ALTAS\n \n2-MODIFICAR\n \n3-BAJAS\n \n4-INFORMAR\n ",
-						"\nIngreso una opcion incorrecta", 1, 4, 2);
+						"\n\t<---EMPLEADOS--->\n \n1-ALTAS\n \n2-MODIFICAR\n \n3-BAJAS\n \n4-INFORMAR\n \n5-SALIR\n",
+						"\nIngreso una opcion incorrecta", 1, 5, 2);
 		if (!respuesta) {
 
 			switch (opcion) {
@@ -52,6 +52,8 @@ int main(void) {
 				break;
 			case 2:
 				if (flag != 0) {
+					printf("\n\t<---EMPLEADOS--->\n");
+					printEmployees(arrayEmpleados, CANT_EMPLEADOS);
 					idModify = findEmployeeById(arrayEmpleados, CANT_EMPLEADOS,
 							id);
 
@@ -61,7 +63,7 @@ int main(void) {
 								idModify);
 
 					} else {
-						printf("\nID vacio, no hay campos para modificar.");
+						printf("\nNo se pudo realizar la operación, revise los datos ingresados.");
 
 					}
 
@@ -73,7 +75,8 @@ int main(void) {
 				break;
 			case 3:
 				if (flag != 0) {
-
+					printf("\n\t<---EMPLEADOS--->\n");
+					printEmployees(arrayEmpleados, CANT_EMPLEADOS);
 					idRemove = findEmployeeById(arrayEmpleados, CANT_EMPLEADOS,
 							id);
 
@@ -82,8 +85,8 @@ int main(void) {
 
 						flag--;
 
-					} else {
-						printf("\nID vacio, no hay campos borrar.");
+					} else{
+						printf("\nNo se pudo realizar la operación, revise los datos ingresados.");
 
 					};
 
@@ -102,13 +105,16 @@ int main(void) {
 						sortEmployees(arrayEmpleados, CANT_EMPLEADOS, idOrder);
 						printEmployees(arrayEmpleados, CANT_EMPLEADOS);
 						utn_calcularPromediosueldo(arrayEmpleados,
-								CANT_EMPLEADOS);
-						salida = 0;
+						CANT_EMPLEADOS);
+
 					};
 				} else {
 					printf("\nPrimero debe cargar un empleado\n");
 				}
 				getchar();
+				break;
+			case 5:
+				salida = 0;
 				break;
 
 			};

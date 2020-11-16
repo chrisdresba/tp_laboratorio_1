@@ -52,8 +52,9 @@ int addEmployee(Employees *list, int limite, int *id, char name[],
 				&& utn_getNombre(buffer.lastName, 51, "\nIngrese su apellido: ",
 						"\n Se ingreso un apellido demasiado largo o un caracter que no es una letra. \n",
 						2) == 0
-				&& utn_getNumerofloat(&buffer.salary, "\n Ingrese el salario: ",
-						"\nIngreso un dato incorrecto: 0-500000", 0, 500000, 2)
+				&& utn_getNumerofloat(&buffer.salary,
+						"\n Ingrese el salario:  ",
+						"\nIngreso un dato incorrecto: 1000-500000", 1000, 500000, 2)
 						== 0
 				&& utn_getNumero(&buffer.sector, "\n Ingrese el sector: 1-50 ",
 						"\nIngreso un dato incorrecto", 1, 50, 2) == 0) {
@@ -67,6 +68,7 @@ int addEmployee(Employees *list, int limite, int *id, char name[],
 
 			*id = *id + 1;
 			retorno = 0;
+		printf("\nEl alta se realizo con exito.");
 
 		}
 	} else {
@@ -86,12 +88,13 @@ int findEmployeeById(Employees *list, int limite, int id) {
 		if (utn_getNumero(&idObtenido, "\n Ingrese el Número de ID :\n",
 				"\nIngreso un dato incorrecto", 0, 999, 2) == 0) {
 
-			for (i = 0; i < limite; i++)
+			for (i = 0; i < limite; i++){
 
 				if (list[i].id == idObtenido) {
 					retorno = i;
 					break;
 				};
+			}
 
 		}
 
@@ -109,8 +112,8 @@ int modifyEmployeeById(Employees *list, int limite, int id) {
 	if (list != NULL && limite > 0 && list[indice].isEmpty == 0) {
 		respuesta =
 				utn_getNumero(&opcion,
-						"\n\t<MODIFICAR OPCIONES>\n \n1-Nombre, 2-Apellido, 3-Salario o 4-Sector\n ",
-						"\nIngreso una opcion incorrecta", 1, 4, 2);
+						"\n\t<MODIFICAR OPCIONES>\n \n1-Nombre, 2-Apellido, 3-Salario, 4-Sector o 5-Salir\n ",
+						"\nIngreso una opcion incorrecta", 1, 5, 2);
 		if (!respuesta) {
 			switch (opcion) {
 			case 1:
@@ -132,7 +135,7 @@ int modifyEmployeeById(Employees *list, int limite, int id) {
 			case 3:
 				if (utn_getNumerofloat(&list[indice].salary,
 						"\n Ingrese el salario: \n",
-						"\nIngreso un dato incorrecto: 0-500000", 0, 500000, 2)
+						"\nIngreso un dato incorrecto: 1000-500000", 1000, 500000, 2)
 						== 0) {
 					retorno = 0;
 				}
@@ -144,8 +147,14 @@ int modifyEmployeeById(Employees *list, int limite, int id) {
 					retorno = 0;
 				}
 				break;
+			case 5:
+				printf("\nNo se han producido cambios.");
+				break;
 			}
 
+			if (retorno == 0) {
+				printf("\nLa modificación se realizo con exito.");
+			}
 		};
 	}
 	return retorno;
@@ -158,7 +167,7 @@ int removeEmployee(Employees *list, int limite, int id) {
 	if (list != NULL && limite > 0 && list[indice].isEmpty == 0 && id >= 0) {
 		list[indice].isEmpty = 1;
 
-		printf("\nBAJA de ID exitosa");
+		printf("\nLa baja se realizo con exito");
 		retorno = 0;
 	}
 	getchar();
